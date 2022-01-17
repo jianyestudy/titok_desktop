@@ -1,20 +1,43 @@
 // @vue/component
+import VideoList from "../../components/videoList/videoList.vue";
 import { reactive } from 'vue'
-import { ArrowLeft, VideoPlay } from '@element-plus/icons-vue'
+import { ElLoading } from 'element-plus'
+import requests from "../../core/http.js";
 
-const form = reactive({
-    name: '',
-    region: '',
-    date1: '',
-    date2: '',
-    delivery: false,
-    type: [],
-    resource: '',
-    desc: '',
+
+const queryPlay = reactive({
+    cardNumber: 'b49a44dd-c169-4d24-a133-677c9273a5d6',
+    uid: '',
 })
 
+export const queryPlayApi = (data) => {
+    return requests({
+        url: "query-play",
+        method: "post",
+        data
+    });
+};
+
 const onSubmit = () => {
-    console.log('submit!')
+    const uidArray = queryPlay.uid.split('\n')
+    const loadingInstance = ElLoading.service({ fullscreen: true })
+    for (let i =0; i <uidArray.length; i++){
+
+        if(uidArray[i].length === 0) continue;
+
+        const requestData = {
+            cardNumber: queryPlay.cardNumber,
+            uid: uidArray[i]
+        }
+
+        queryPlayApi(requestData).then((res) => {
+            console.log(res.data)
+            //convertUser.uid += res.data + '\n';
+        });
+    }
+
+    loadingInstance.close()
+
 }
 
 export default {
@@ -27,7 +50,7 @@ export default {
     props: {},
 
     data () {
-        return {form}
+        return {queryPlay,onSubmit}
     },
 
     computed: {},
