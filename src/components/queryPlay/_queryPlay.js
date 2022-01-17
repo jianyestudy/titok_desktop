@@ -1,5 +1,4 @@
 // @vue/component
-import VideoList from "../../components/videoList/videoList.vue";
 import { reactive } from 'vue'
 import { ElLoading } from 'element-plus'
 import requests from "../../core/http.js";
