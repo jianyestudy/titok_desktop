@@ -48,9 +48,21 @@
                 </div>
                 <div
                     style="text-align:center;width:250px;position: absolute;height:50px;line-height:50px;background-color:#c2c2c2cc">
-                  <span>播放: {{ convertMath(v.playCount) }} </span>
-                  <span>点赞: {{ convertMath(v.diggCount) }} </span>
-                  <span>评论: {{ convertMath(v.commentCount) }} </span>
+                  <span>播:
+
+                    <span v-if="isNaN(convertMath(v.playCount))" style="color:red;font-size:20px">
+                    {{ convertMath(v.playCount) }}
+                  </span>  <span v-else style="font-size:20px"> {{ convertMath(v.playCount) }}</span> </span>
+
+                  <span>赞:
+                    <span v-if="isNaN(convertMath(v.diggCount))" style="color:red;font-size:20px">
+                    {{ convertMath(v.diggCount) }}
+                  </span>   <span v-else style="font-size:20px">  {{ convertMath(v.diggCount) }} </span></span>
+
+                  <span>评:
+                    <span v-if="isNaN(convertMath(v.commentCount))" style="color:red;font-size:20px">
+                    {{ convertMath(v.commentCount) }}
+                  </span> <span v-else style="font-size:20px"> {{ convertMath(v.commentCount) }} </span> </span>
                 </div>
 
               </el-card>
@@ -74,16 +86,17 @@ export default {
   computed: {
     convertMath(){
       return function (String) {
+        String = String.toString();
         if (String.length <= 3) {
           return String
         }
 
         if (String.length <= 6) {
-          return Math.floor(String * 100) / 100 + "k"
+          return Math.floor(String /1000 * 100) / 100 + "k"
         }
 
         if (String.length <= 9) {
-          return Math.floor(String * 100) / 100 + "m"
+          return Math.floor(String / 1000 /1000 * 100) / 100 + "m"
         }
       }
     }
