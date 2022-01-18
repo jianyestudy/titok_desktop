@@ -5,7 +5,7 @@ import requests from "../../core/http.js";
 
 
 const queryPlay = reactive({
-    cardNumber: 'b49a44dd-c169-4d24-a133-677c9273a5d6',
+    cardNumber: '',
     uid: '',
 })
 

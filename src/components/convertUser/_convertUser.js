@@ -12,7 +12,7 @@ export const covertUser = (data) => {
 };
 
 const convertUser = reactive({
-    cardNumber: 'b49a44dd-c169-4d24-a133-677c9273a5d6',
+    cardNumber: '',
     username: '',
     uid: '',
 })
